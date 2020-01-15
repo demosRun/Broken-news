@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>{TAG_14226_TAG}</title>
+  <!-- 页面的元信息 -->
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no, email=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="filetype" content="1" />
+  <meta name="publishedtype" content="1" />
+  <meta name="pagetype" content="2" />
+  <meta name="screen-orientation" content="landscape" />
+  <meta name="x5-orientation" content="landscape" />
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="browsermode" content="application" />
+  <meta name="x5-page-mode" content="app" />
+
+  <!-- 页面主样式文件 -->
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.main.lixq0r9j8pi.css">
+
+  <!-- 附属css文件 -->
+  <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
+  <link rel="stylesheet" href="./static/css/swiper.5.2.1.min.css" charset="utf-8">
+
+</head>
+
+<body>
+  <div class="scale-box">
+    <!-- 页面区域 -->
+    <!-- 页面[page1]-->
+    <div class="page-1 owo" template="page1" style="display: none;">
+      <img class="press owo-animation-shrink" src="./static/resource/press.png" o-animation="shrink" o-tap="enter">
+    </div>
+    <!-- 页面[page2]-->
+    <div class="page-2 owo" template="page2" style="display: none;">
+      <div class="page-2-text" id="text"></div><!-- 跳过-->
+      <img class="turn" src="./static/resource/jump.png" o-tap="owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true)">
+    </div>
+    <!-- 页面[page3]-->
+    <div class="page-3 owo" template="page3" style="display: none;">
+      <div class="swiper-container">
+        <img class="before owo-animation-shrink" src="./static/resource/before.png" o-animation="shrink">
+        <img class="after owo-animation-shrink" src="./static/resource/after.png" o-animation="shrink">
+        <div class="swiper-pagination"></div>
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="./static/resource/card1.jpg">
+            <div class="info">
+              <a href="#"></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="./static/resource/card1.jpg">
+            <div class="info">
+              <a href="#"></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="./static/resource/card1.jpg">
+            <div class="info">
+              <a href="#"></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="./static/resource/card1.jpg">
+            <div class="info">
+              <a href="#"></a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="./static/resource/card1.jpg">
+            <div class="info">
+              <a href="#"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="http://tools.people.com.cn/libs/jquery/1.11.1/jquery-1.11.1.min.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/swiper.5.2.1.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/main.js" type="text/javascript" charset="UTF-8"></script><!-- 框架script代码 -->
+  <!-- 框架script文件 -->
+  <script src="./static/js/owo.main.lixq0r9j8pi.js" type="text/javascript" charset="UTF-8"></script>
+  <script>
+    /*
+  存储每个页面的函数
+  键名：页面名称
+  键值：方法列表
+*/
+    owo.phoneEnter = "null";
+    owo.script = {
+      "page1": {
+        "enter": function enter(params) {
+          new Audio("./static/resource/bg.mp3").play();
+          owo.go('page2', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true);
+        }
+      },
+      "page2": {
+        "show": function show(params) {
+          var _this = this;
+
+          this.$dom.text.style.height = '0';
+          setTimeout(function() {
+            _this.$dom.text.style.height = '958px';
+            setTimeout(function() {
+              if (owo.activePage == 'page2') {
+                owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true);
+              }
+            }, 16000);
+          }, 100);
+        }
+      },
+      "page3": {
+        "created": function created(params) {
+          var mySwiper = new Swiper('.swiper-container', {
+            pagination: {
+              el: '.swiper-pagination',
+              type: 'fraction'
+            },
+            navigation: {
+              nextEl: '.after',
+              prevEl: '.before'
+            }
+          });
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>

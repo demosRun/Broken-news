@@ -1,0 +1,44 @@
+<template lang="pug">
+.page-2
+  .page-2-text#text
+  // 跳过
+  img.turn(src="@|jump.png|" o-tap="owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true)")
+</template>
+
+<script>
+  module.exports = {
+    show: function (params) {
+      this.$dom.text.style.height = '0'
+      setTimeout(() => {
+        this.$dom.text.style.height = '958px'
+        setTimeout(() => {
+          if (owo.activePage == 'page2') {
+            owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true)
+          }
+        }, 16000)
+      }, 100)
+    }
+  }
+</script>
+
+<style lang="less">
+.page-2 {
+  background-image: url('@|page2.jpg|');
+}
+.page-2-text {
+  background-image: url('@|page2-text.png|');
+  width: 552px;
+  height: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 23%;
+  transition: height 12s linear;
+}
+.turn {
+  position: absolute;
+  right: 6%;
+  bottom: 12%;
+}
+</style>

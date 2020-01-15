@@ -1,0 +1,27 @@
+<template lang="pug">
+.page-1
+  img.press(src="@|press.png|" o-animation="shrink" o-tap="enter")
+</template>
+
+<script>
+  module.exports = {
+    enter: function (params) {
+      new Audio("@|bg.mp3|").play()
+      owo.go('page2', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true)
+    }
+  }
+</script>
+
+
+<style lang="less">
+.page-1 {
+  background-image: url('@|page1.jpg|');
+}
+.press {
+  position: absolute;
+  bottom: 22%;
+  left: 4%;
+  right: 0;
+  margin: auto;
+}
+</style>
