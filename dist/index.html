@@ -22,7 +22,7 @@
   <meta name="x5-page-mode" content="app" />
 
   <!-- 页面主样式文件 -->
-  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.main.lixq0r9j8pi.css">
+  <link charset="utf-8" rel="stylesheet" href="./static/css/owo.main.m140ipm15t.css">
 
   <!-- 附属css文件 -->
   <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
@@ -44,9 +44,15 @@
     </div>
     <!-- 页面[page3]-->
     <div class="page-3 owo" template="page3" style="display: none;">
+      <div class="share-box" o-show="this.data.showShare" o-tap="hide">
+        <img class="share-img" id="shareImg" src="./static/resource/share.jpg">
+        <div class="text">长按保存图片</div>
+      </div>
       <div class="swiper-container">
         <img class="before owo-animation-shrink" src="./static/resource/before.png" o-animation="shrink">
         <img class="after owo-animation-shrink" src="./static/resource/after.png" o-animation="shrink">
+        <img class="share" src="./static/resource/share.png" o-tap="share"><!-- 返回首页-->
+        <img class="back" src="./static/resource/back.png" o-tap="owo.go('page1', 'moveToRight', 'scaleUp', 'moveToLeft', 'scaleUp', true)">
         <div class="swiper-pagination"></div>
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -89,7 +95,7 @@
   <script src="./static/js/swiper.5.2.1.js" type="text/javascript" charset="UTF-8"></script>
   <script src="./static/js/main.js" type="text/javascript" charset="UTF-8"></script><!-- 框架script代码 -->
   <!-- 框架script文件 -->
-  <script src="./static/js/owo.main.lixq0r9j8pi.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="./static/js/owo.main.m140ipm15t.js" type="text/javascript" charset="UTF-8"></script>
   <script>
     /*
   存储每个页面的函数
@@ -115,13 +121,17 @@
               if (owo.activePage == 'page2') {
                 owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true);
               }
-            }, 16000);
+            }, 20000);
           }, 100);
         }
       },
       "page3": {
+        "data": {
+          "swiper": null,
+          "showShare": false
+        },
         "created": function created(params) {
-          var mySwiper = new Swiper('.swiper-container', {
+          this.data.swiper = new Swiper('.swiper-container', {
             pagination: {
               el: '.swiper-pagination',
               type: 'fraction'
@@ -131,6 +141,17 @@
               prevEl: '.before'
             }
           });
+        },
+        "share": function share() {
+          // this.$dom.shareImg.src = this.data.swiper.slides[this.data.swiper.activeIndex].getElementsByTagName('img')[0].src
+          this.data.showShare = true;
+
+          _owo.handleEvent(this);
+        },
+        "hide": function hide() {
+          this.data.showShare = false;
+
+          _owo.handleEvent(this);
         }
       }
     };

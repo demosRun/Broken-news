@@ -1,4 +1,4 @@
-// Wed Jan 15 2020 15:56:52 GMT+0800 (GMT+08:00)
+// Thu Jan 16 2020 13:23:38 GMT+0800 (GMT+08:00)
 var owo = {tool: {},state: {},};
 /* 方法合集 */
 var _owo = {}
@@ -83,6 +83,7 @@ function shaheRun (code) {
     return eval(code)
   } catch (error) {
     console.error(error)
+    console.log('执行代码: ' + code)
     return undefined
   }
 }
@@ -105,6 +106,7 @@ _owo.handleEvent = function (moudleScript) {
         if (new RegExp("^o-").test(attribute.name)) {
           var eventName = attribute.name.slice(2)
           switch (eventName) {
+            
             case 'tap': {
               // 待优化 可合并
               // 根据手机和PC做不同处理
@@ -116,6 +118,8 @@ _owo.handleEvent = function (moudleScript) {
               } else _owo.bindEvent('click', eventFor, tempDom, moudleScript)
               break
             }
+            
+            
             case 'show': {
               if (shaheRun.apply(moudleScript, [eventFor])) {
                 tempDom.style.display = ''
@@ -124,65 +128,9 @@ _owo.handleEvent = function (moudleScript) {
               }
               break
             }
-            case 'html': {
-              tempDom.innerHTML = shaheRun.apply(moudleScript, [eventFor])
-              break
-            }
-            // 处理o-value
-            case 'value': {
-              var value = shaheRun.apply(moudleScript, [eventFor])
-              switch (tempDom.tagName) {
-                case 'INPUT':
-                  switch (tempDom.getAttribute('type')) {
-                    case 'number':
-                      if (value == undefined) value = ''
-                      tempDom.value = value
-                      tempDom.oninput = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '=' + e.target.value])
-                      }
-                      break;
-                    case 'text':
-                      if (value == undefined) value = ''
-                      tempDom.value = value
-                      tempDom.oninput = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '="' + e.target.value + '"'])
-                      }
-                      break;
-                    case 'checkbox':
-                      tempDom.checked = Boolean(value)
-                      tempDom.onclick = function (e) {
-                        shaheRun.apply(moudleScript, [eventFor + '=' + tempDom.checked])
-                      }
-                      break;
-                  }
-                  break;
-              }
-              break
-            }
-            // 处理o-for
-            case 'for': {
-              // console.log(new Function('a', 'b', 'return a + b'))
-              var forEle = shaheRun.apply(moudleScript, [eventFor])
-              var temp = tempDom.outerHTML
-              var outHtml = ''
-              
-              
-              for (const key in forEle) {
-                const value = forEle[key];
-                var tempCopy = temp
-                // 获取模板插值
-                var tempVar = new RegExp("(?<={).*?(?=})","g").exec(tempCopy)
-                console.log(tempVar)
-                for (const varKey in tempVar) {
-                  var varValue = tempVar[varKey]
-                  // 默认变量
-                  var constVar = 'var value = ' + JSON.stringify(value) + '; var key = ' + varKey + ';\r\n '
-                  tempCopy = tempCopy.replace('{' + varValue + '}', shaheRun.apply(moudleScript, [constVar + varValue]))
-                }
-                outHtml += tempCopy
-              }
-              // tempDom.outerHTML = outHtml
-            }
+            
+            
+            
             default: {
               _owo.bindEvent(eventName, eventFor, tempDom, moudleScript)
             }
@@ -196,6 +144,7 @@ _owo.handleEvent = function (moudleScript) {
     }
     // 判断是否有子节点需要处理
     if (tempDom.children) {
+      
       // 递归处理所有子Dom结点
       for (var i = 0; i < tempDom.children.length; i++) {
         // 获取子节点实例

@@ -1,8 +1,14 @@
 <template lang="pug">
 .page-3
+  .share-box(o-show="this.data.showShare" o-tap="hide")
+    img#shareImg.share-img(src="@|share.jpg|")
+    .text 长按保存图片
   .swiper-container
     img.before(src="@|before.png|" o-animation="shrink")
     img.after(src="@|after.png|" o-animation="shrink")
+    img.share(src="@|share.png|" o-tap="share")
+    // 返回首页
+    img.back(src="@|back.png|" o-tap="owo.go('page1', 'moveToRight', 'scaleUp', 'moveToLeft', 'scaleUp', true)")
     .swiper-pagination
     .swiper-wrapper
       .swiper-slide
@@ -29,8 +35,12 @@
 
 <script>
   module.exports = {
+    data: {
+      swiper: null,
+      showShare: false
+    },
     created: function (params) {
-      var mySwiper = new Swiper('.swiper-container', {
+      this.data.swiper = new Swiper('.swiper-container', {
         pagination: {
           el: '.swiper-pagination',
           type: 'fraction',
@@ -40,6 +50,15 @@
           prevEl: '.before',
         },
       })
+    },
+    share: function () {
+      // this.$dom.shareImg.src = this.data.swiper.slides[this.data.swiper.activeIndex].getElementsByTagName('img')[0].src
+      this.data.showShare = true
+      _owo.handleEvent(this)
+    },
+    hide: function () {
+      this.data.showShare = false
+      _owo.handleEvent(this)
     }
   }
 </script>
@@ -51,7 +70,7 @@
   height: 41px;
   position: absolute;
   bottom: 16%;
-  right: 8%;
+  right: 43%;
   background-repeat: no-repeat;
   a {
     display: block;
@@ -82,5 +101,41 @@
   font-weight: bold;
   width: 100px;
   line-height: 40px;
+}
+.back {
+  position: absolute;
+  top: 81%;
+  left: 8%;
+  z-index: 99;
+}
+.share {
+  position: absolute;
+  top: 81%;
+  right: 8%;
+  z-index: 9;
+}
+.share-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(204, 204, 204, 0.9);
+  .text {
+    position: absolute;
+    color: black;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    bottom: 18%;
+  }
+  .share-img {
+    height: 61%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: block;
+    margin: auto;
+    top: 16%;
+  }
 }
 </style>

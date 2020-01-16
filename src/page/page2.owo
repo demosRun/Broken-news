@@ -15,7 +15,7 @@
           if (owo.activePage == 'page2') {
             owo.go('page3', 'moveToLeft', 'scaleUp', 'moveToRight', 'scaleUp', true)
           }
-        }, 16000)
+        }, 20000)
       }, 100)
     }
   }
@@ -27,14 +27,14 @@
 }
 .page-2-text {
   background-image: url('@|page2-text.png|');
-  width: 552px;
+  width: 583px;
   height: 0;
   position: absolute;
   left: 0;
   right: 0;
   margin: auto;
   top: 23%;
-  transition: height 12s linear;
+  transition: height 16s linear;
 }
 .turn {
   position: absolute;
